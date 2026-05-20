@@ -1,0 +1,15 @@
+# Virtual environment - never upload
+venv/
+
+# Secret keys - never upload
+.env
+
+# Mac system file
+.DS_Store
+
+# Python compiled files
+__pycache__/
+*.pyc
+
+# Database files
+*.db
