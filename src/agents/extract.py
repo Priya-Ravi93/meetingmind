@@ -194,3 +194,5 @@ if __name__ == "__main__":
         print(f"  - {decision.decision}")
     print()
     print(f"NEXT MEETING: {result.next_meeting}")
+
+    
