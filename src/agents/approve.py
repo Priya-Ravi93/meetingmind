@@ -24,17 +24,27 @@ class ApprovalRequest(BaseModel):
     Everything presented to the organiser for approval.
     Sent as a Teams message before any actions are taken.
     """
-    meeting_title:  str
-    summary:        str
-    action_items:   List[dict]
-    carry_overs:    List[dict]
-    decisions:      List[dict]
-    next_meeting:   Optional[str] = None
+    meeting_title:    str
+    summary:          str
+    action_items:     List[dict]
+    carry_overs:      List[dict]
+    decisions:        List[dict]
+    next_meeting:     Optional[str] = None
+    organiser_name:   Optional[str] = None
+    organiser_email:  Optional[str] = None
+    attendees:        Optional[str] = None
+    missed_attendees: Optional[str] = None
+    teams_meeting_id: Optional[str] = None
 
 def format_approval_request(
-    meeting_title: str,
+    meeting_title:    str,
     summary,
-    carry_overs: List
+    carry_overs:      List,
+    organiser_name:   Optional[str] = None,
+    organiser_email:  Optional[str] = None,
+    attendees:        Optional[str] = None,
+    missed_attendees: Optional[str] = None,
+    teams_meeting_id: Optional[str] = None
 ) -> ApprovalRequest:
     """
     Formats extracted meeting data into an approval request.
@@ -80,13 +90,19 @@ def format_approval_request(
     ]
     
     return ApprovalRequest(
-        meeting_title = meeting_title,
-        summary       = summary.summary,
-        action_items  = action_items,
-        carry_overs   = formatted_carry_overs,
-        decisions     = decisions,
-        next_meeting  = summary.next_meeting
-    )
+        meeting_title    = meeting_title,
+        summary          = summary.summary,
+        action_items     = action_items,
+        carry_overs      = formatted_carry_overs,
+        decisions        = decisions,
+        next_meeting     = summary.next_meeting,
+        organiser_name   = organiser_name,
+        organiser_email  = organiser_email,
+        attendees        = attendees,
+        missed_attendees = missed_attendees,
+        teams_meeting_id = teams_meeting_id
+        )
+    
 
 
 def format_teams_message(approval: ApprovalRequest) -> str:
